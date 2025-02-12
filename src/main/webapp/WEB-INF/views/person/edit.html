@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:if="${person}">My app</title>
+    <title th:if="!${person}">Not Found</title>
+</head>
+
+<body>
+<div th:if="${person}">
+    <form th:method="PATCH" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getPerson_id()})}">
+        <br>
+        <label for="name">Full name:</label>
+        <input th:field="*{fullname}" type="text" id="name">
+        <div style="color: red" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" ></div>
+        <br>
+        <label for="birth-year">Birth year:</label>
+        <input th:field="*{birthYear}" type="text" id="birth-year">
+        <div style="color: red" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}" ></div>
+        <br>
+        <input type="submit" value="Edit reader">
+    </form>
+    <br>
+    <br>
+    <h4 style="margin: 0 0 10px 0" th:text="${books.isEmpty()}? 'This reader has nothing books' : 'This reader has some books:' " >Book</h4>
+    <div th:each="booksObj: ${books}">
+        <a th:if="${!books.isEmpty()}" th:text="${booksObj.getName()}" th:href="@{/book/{id}/edit (id=${booksObj.getBook_id()})}"></a>
+    </div>
+    <br>
+    <br>
+    <form th:method="DELETE" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getPerson_id()})}">
+        <input type="submit" value="Delete reader">
+    </form>
+</div>
+<div th:if="!${person}">404 not Found. This reader does not exist...</div>
+</body>
+
+</html>

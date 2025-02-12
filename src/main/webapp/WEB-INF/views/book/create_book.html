@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>My app</title>
+</head>
+
+<body>
+<form th:method="POST" th:object="${book}" th:action="@{/book/new}">
+    <br>
+    <label for="name">Book name:</label>
+    <input th:field="*{name}" type="text" id="name">
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br>
+    <label for="author">Book author:</label>
+    <input th:field="*{author}" type="text" id="author">
+    <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+    <br>
+    <label for="year-of-production">Year of production:</label>
+    <input th:field="*{year_of_production}" type="text" id="year-of-production">
+    <div style="color: red" th:if="${#fields.hasErrors('year_of_production')}" th:errors="*{year_of_production}" ></div>
+    <br>
+    <input type="submit" value="Create new book">
+</form>
+</body>
+
+</html>

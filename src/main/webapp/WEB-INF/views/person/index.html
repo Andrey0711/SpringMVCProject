@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>My app</title>
+</head>
+
+<body>
+
+<div th:each="personObj: ${person}">
+    <a th:text="${personObj.getFullname()}" th:href="@{/person/{id}/edit (id=${personObj.getPerson_id()})}"></a>
+</div>
+<br>
+<a th:href="@{person/new}">Create new reader</a>
+</body>
+
+</html>

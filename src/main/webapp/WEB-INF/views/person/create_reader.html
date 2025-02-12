@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>My app</title>
+</head>
+
+<body>
+<form th:method="POST" th:object="${person}" th:action="@{/person/new}">
+    <br>
+    <label for="name">Full name:</label>
+    <input th:field="*{fullname}" type="text" id="name">
+    <div style="color: red" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" ></div>
+    <br>
+    <label for="birth-year">Birth year:</label>
+    <input th:field="*{birthYear}" type="text" id="birth-year">
+    <div style="color: red" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}" ></div>
+    <br>
+    <input type="submit" value="Create new reader">
+</form>
+</body>
+
+</html>
