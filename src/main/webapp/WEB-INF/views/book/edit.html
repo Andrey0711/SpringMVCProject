@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<form th:method="PATCH" th:object="${book}" th:action="@{/book/{id}/edit (id=${book.getBook_id()})}">
+<form th:method="PATCH" th:object="${book}" th:action="@{/book/{id}/edit (id=${book.getId()})}">
     <br>
     <label for="name">Book name:</label>
     <input th:field="*{name}" type="text" id="name">
@@ -26,15 +26,15 @@
 <br>
 <div th:if="${person}">
     <p th:text="'Now book at ' + ${person.getFullname()}"></p>
-    <form th:method="PATCH" th:object="${book}" th:action="@{/book/{id}/edit/freereader (id=${book.getBook_id()})}">
+    <form th:method="PATCH" th:object="${book}" th:action="@{/book/{id}/edit/freereader (id=${book.getId()})}">
         <input type="submit" value="Free book">
     </form>
 </div>
 <div th:if="${personList}">
-    <form th:if="!${personList.isEmpty()}" th:method="PATCH" th:action="@{/book/{id}/changereader (id=${book.getBook_id()})}">
+    <form th:if="!${personList.isEmpty()}" th:method="PATCH" th:action="@{/book/{id}/changereader (id=${book.getId()})}">
         <label for="change-person-in-book">
-            <select th:object="${book}" th:field="*{person_id}" id="change-person-in-book">
-                <option th:each="personObj: ${personList}" th:text="${personObj.getFullname()}" th:value="${personObj.getPerson_id()}"></option>
+            <select th:object="${personForChangeBookOwner}" th:field="*{id}" id="change-person-in-book">
+                <option th:each="personObj: ${personList}" th:text="${personObj.getFullname()}" th:value="${personObj.getId()}"></option>
             </select>
         </label>
         <input type="submit" value="Assign book">
@@ -43,7 +43,7 @@
 </div>
 <br>
 <br>
-<form th:method="DELETE" th:object="${book}" th:action="@{/book/{id}/edit (id=${book.getBook_id()})}">
+<form th:method="DELETE" th:object="${book}" th:action="@{/book/{id}/edit (id=${book.getId()})}">
     <input type="submit" value="Delete book">
 </form>
 </body>

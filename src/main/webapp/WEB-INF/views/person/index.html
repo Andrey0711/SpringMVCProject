@@ -9,7 +9,7 @@
 <body>
 
 <div th:each="personObj: ${person}">
-    <a th:text="${personObj.getFullname()}" th:href="@{/person/{id}/edit (id=${personObj.getPerson_id()})}"></a>
+    <a th:text="${personObj.getFullname()}" th:href="@{/person/{id}/edit (id=${personObj.getId()})}"></a>
 </div>
 <br>
 <a th:href="@{person/new}">Create new reader</a>

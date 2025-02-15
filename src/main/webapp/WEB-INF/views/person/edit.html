@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="ISO-8859-1">
@@ -9,7 +9,7 @@
 
 <body>
 <div th:if="${person}">
-    <form th:method="PATCH" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getPerson_id()})}">
+    <form th:method="PATCH" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getId()})}">
         <br>
         <label for="name">Full name:</label>
         <input th:field="*{fullname}" type="text" id="name">
@@ -25,11 +25,11 @@
     <br>
     <h4 style="margin: 0 0 10px 0" th:text="${books.isEmpty()}? 'This reader has nothing books' : 'This reader has some books:' " >Book</h4>
     <div th:each="booksObj: ${books}">
-        <a th:if="${!books.isEmpty()}" th:text="${booksObj.getName()}" th:href="@{/book/{id}/edit (id=${booksObj.getBook_id()})}"></a>
+        <a th:if="${!books.isEmpty()}" th:text="${booksObj.getName()}" th:href="@{/book/{id}/edit (id=${booksObj.getId()})}"></a>
     </div>
     <br>
     <br>
-    <form th:method="DELETE" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getPerson_id()})}">
+    <form th:method="DELETE" th:object="${person}" th:action="@{/person/{id}/edit (id=${person.getId()})}">
         <input type="submit" value="Delete reader">
     </form>
 </div>
