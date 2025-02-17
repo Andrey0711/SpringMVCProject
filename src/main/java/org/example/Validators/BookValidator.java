@@ -1,6 +1,5 @@
 package org.example.Validators;
 
-import org.example.BookDao.BookDao;
 import org.example.Models.Book;
 import org.example.Models.Person;
 import org.example.Services.BookService;
@@ -17,7 +16,7 @@ public class BookValidator implements Validator {
     private final BookService bookService;
 
     @Autowired
-    public BookValidator(BookDao bookDao, BookService bookService) {
+    public BookValidator(BookService bookService) {
         this.bookService = bookService;
     }
 

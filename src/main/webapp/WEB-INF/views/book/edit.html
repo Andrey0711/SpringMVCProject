@@ -18,8 +18,8 @@
     <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
     <br>
     <label for="year-of-production">Year of production:</label>
-    <input th:field="*{year_of_production}" type="text" id="year-of-production">
-    <div style="color: red" th:if="${#fields.hasErrors('year_of_production')}" th:errors="*{year_of_production}" ></div>
+    <input th:field="*{yearOfProduction}" type="text" id="year-of-production">
+    <div style="color: red" th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}" ></div>
     <br>
     <input type="submit" value="Edit book">
 </form>

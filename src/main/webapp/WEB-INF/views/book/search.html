@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>My app</title>
+</head>
+
+<body>
+
+<form th:method="POST" th:object="${book}" th:action="@{/search}">
+    <label for="book"></label>
+    <input th:field="*{name}" type="text" id="book">
+    <input type="submit" value="Search...">
+</form>
+<div th:if="${bookList}">
+    <div th:if="${!bookList.isEmpty()}" th:each="bookObj: ${bookList}">
+    </div>
+</div>
+</body>
+
+</html>

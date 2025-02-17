@@ -16,8 +16,8 @@
         <div style="color: red" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" ></div>
         <br>
         <label for="birth-year">Birth year:</label>
-        <input th:field="*{birthYear}" type="text" id="birth-year">
-        <div style="color: red" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}" ></div>
+        <input th:field="*{date_of_birth}" type="text" id="birth-year">
+        <div style="color: red" th:if="${#fields.hasErrors('date_of_birth')}" th:utext="#{typeMismatch.postForm.date}" ></div>
         <br>
         <input type="submit" value="Edit reader">
     </form>

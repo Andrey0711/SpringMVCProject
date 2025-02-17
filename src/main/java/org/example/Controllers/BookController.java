@@ -2,21 +2,18 @@ package org.example.Controllers;
 
 import jakarta.validation.Valid;
 import org.example.Models.Book;
-import org.example.BookDao.BookDao;
 import org.example.Models.Person;
-import org.example.PersonDao.PersonDao;
-import org.example.Repositories.BookRepository;
 import org.example.Services.BookService;
 import org.example.Services.PersonService;
 import org.example.Validators.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,8 +31,11 @@ public class BookController {
     }
 
     @GetMapping
-    public String index(Model model){
-        model.addAttribute("book", bookService.findAll());
+    public String index(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                        @RequestParam(value = "books_per_page", required = false, defaultValue = "4") int books_per_page,
+                        @RequestParam(value = "sort_by_year", required = false, defaultValue = "false") boolean sortByYear,
+                        Model model){
+        model.addAttribute("book", bookService.findAll(page, books_per_page, sortByYear));
         return "book/index";
     }
 
@@ -96,6 +96,19 @@ public class BookController {
     public String freeReader(@PathVariable("id") int id){
         bookService.removePersonById(id);
         return "redirect:/book";
+    }
+
+    @GetMapping("/search")
+    public String search(@ModelAttribute("book") Book book){
+        return "book/search";
+    }
+
+    @PostMapping("/search")
+    public String searchingBook(@ModelAttribute("book") Book book, Model model){
+        Optional<List<Book>> optionalBookList = bookService.findBooksByNameStarsWith(book.getName());
+        optionalBookList.ifPresentOrElse(bookList -> model.addAttribute("bookList", optionalBookList.get()),
+                () -> model.addAttribute("bookList", Collections.emptyList()));
+        return "book/search";
     }
 
     @DeleteMapping("/{id}/edit")

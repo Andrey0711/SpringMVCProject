@@ -3,7 +3,14 @@ package org.example.Models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,15 +24,20 @@ public class Person {
     @Pattern(regexp = "[A-Z]+[a-z]+ [A-Z]+[a-z]+ [A-Z]+[a-z]+", message = "You can't enter incorrect full name. For example: Ivanov Ivan Ivanovich")
     @Column(name = "fullname")
     private String fullname;
-    @Range(min=1900, max=2025, message = "You can't enter incorrect birth year")
-    @Column(name = "birthYear")
-    private int birthYear;
+    @Column(name = "date_of_birth")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate date_of_birth;
+    @Column(name = "was_created")
+    private LocalDateTime was_created;
     @OneToMany(mappedBy = "person")
     private List<Book> bookList;
+    @Column(name = "mood")
+    @Enumerated(EnumType.STRING)
+    private Mood mood;
 
-    public Person(String fullname, int birthYear) {
+    public Person(String fullname, LocalDate date_of_birth) {
         this.fullname = fullname;
-        this.birthYear = birthYear;
+        this.date_of_birth = date_of_birth;
     }
 
     public Person(){}
@@ -45,12 +57,12 @@ public class Person {
         this.fullname = fullname;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    public LocalDate getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setDate_of_birth(LocalDate date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
     public List<Book> getBookList(){
@@ -60,12 +72,28 @@ public class Person {
         this.bookList = bookList;
     }
 
+    public LocalDateTime getWas_created() {
+        return was_created;
+    }
+
+    public void setWas_created(LocalDateTime was_created) {
+        this.was_created = was_created;
+    }
+
+    public Mood getMood() {
+        return mood;
+    }
+
+    public void setMood(Mood mood) {
+        this.mood = mood;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "person_id=" + id +
                 ", fullname='" + fullname + '\'' +
-                ", birthYear=" + birthYear +
+                ", birthYear=" + date_of_birth +
                 '}';
     }
 
@@ -73,11 +101,11 @@ public class Person {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && birthYear == person.birthYear && Objects.equals(fullname, person.fullname);
+        return id == person.id && date_of_birth == person.date_of_birth && Objects.equals(fullname, person.fullname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullname, birthYear);
+        return Objects.hash(id, fullname, date_of_birth);
     }
 }

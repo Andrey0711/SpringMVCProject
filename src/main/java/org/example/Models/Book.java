@@ -24,12 +24,12 @@ public class Book {
     private String author;
     @Range(min = 1000, max = 2025, message = "You can't enter incorrect year of production. For example: 2000")
     @Column(name = "year_of_production")
-    private int year_of_production;
+    private int yearOfProduction;
 
-    public Book(String name, String author, int year_of_production) {
+    public Book(String name, String author, int yearOfProduction) {
         this.name = name;
         this.author = author;
-        this.year_of_production = year_of_production;
+        this.yearOfProduction = yearOfProduction;
     }
     public Book(){}
     public int getId() {
@@ -64,12 +64,12 @@ public class Book {
         this.author = author;
     }
 
-    public int getYear_of_production() {
-        return year_of_production;
+    public int getYearOfProduction() {
+        return yearOfProduction;
     }
 
-    public void setYear_of_production(int year_of_production) {
-        this.year_of_production = year_of_production;
+    public void setYearOfProduction(int yearOfProduction) {
+        this.yearOfProduction = yearOfProduction;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Book {
                 ", person=" + person +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
-                ", year_of_production=" + year_of_production +
+                ", year_of_production=" + yearOfProduction +
                 '}';
     }
 
@@ -87,11 +87,11 @@ public class Book {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && year_of_production == book.year_of_production && Objects.equals(name, book.name) && Objects.equals(author, book.author);
+        return id == book.id && yearOfProduction == book.yearOfProduction && Objects.equals(name, book.name) && Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, year_of_production);
+        return Objects.hash(id, name, author, yearOfProduction);
     }
 }

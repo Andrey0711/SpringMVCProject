@@ -1,10 +1,9 @@
 package org.example.Controllers;
 
 import jakarta.validation.Valid;
-import org.example.BookDao.BookDao;
+import org.example.Dao.PersonDao;
 import org.example.Models.Book;
 import org.example.Models.Person;
-import org.example.PersonDao.PersonDao;
 import org.example.Services.BookService;
 import org.example.Services.PersonService;
 import org.example.Validators.PersonValidator;
@@ -16,18 +15,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Controller
 @RequestMapping("/person")
 public class PeopleController {
     private final BookService bookService;
+    private final PersonDao personDao;
     private final PersonService personService;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(BookService bookService, PersonService personService, PersonValidator personValidator) {
+    public PeopleController(BookService bookService, PersonDao personDao, PersonService personService, PersonValidator personValidator) {
         this.bookService = bookService;
+        this.personDao = personDao;
         this.personService = personService;
         this.personValidator = personValidator;
     }
@@ -68,6 +68,7 @@ public class PeopleController {
         personService.update(id, person);
         return "redirect:/person";
     }
+
     @DeleteMapping("/{id}/edit")
     public String deleteReaderAction(@PathVariable("id") int id){
         personService.remove(id);

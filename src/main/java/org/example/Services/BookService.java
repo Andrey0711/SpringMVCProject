@@ -4,9 +4,14 @@ import org.example.Models.Book;
 import org.example.Models.Person;
 import org.example.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +26,11 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAll(){
-        return bookRepository.findAll();
+    public List<Book> findAll(int page, int books_per_page, boolean sortByYear){
+
+        return sortByYear
+                ? bookRepository.findAll(PageRequest.of(page, books_per_page, Sort.by("year_of_production"))).getContent()
+                : bookRepository.findAll(PageRequest.of(page, books_per_page)).getContent();
     }
 
     public Optional<Book> findOne(int id){
@@ -56,5 +64,9 @@ public class BookService {
 
     public void updatePersonInBook(Person person, int id){
         bookRepository.updatePersonInBook(person, id);
+    }
+
+    public Optional<List<Book>> findBooksByNameStarsWith(String name){
+        return bookRepository.findBooksByNameStartsWith(name);
     }
 }
