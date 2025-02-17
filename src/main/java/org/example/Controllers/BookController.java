@@ -36,6 +36,7 @@ public class BookController {
                         @RequestParam(value = "sort_by_year", required = false, defaultValue = "false") boolean sortByYear,
                         Model model){
         model.addAttribute("book", bookService.findAll(page, books_per_page, sortByYear));
+        System.out.println(bookService.findOne(3).get().isOverdue());
         return "book/index";
     }
 

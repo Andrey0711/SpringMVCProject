@@ -4,7 +4,9 @@ import ch.qos.logback.core.rolling.helper.PeriodicityType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.cglib.core.Local;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Objects;
@@ -41,9 +43,17 @@ public class Book {
         this.yearOfProduction = yearOfProduction;
     }
 
-    public Period isOverdue(){
+    public Duration isOverdue(){
 
-//        return Period.between(whenBookWasGiven, LocalDateTime.now());
+        return Duration.between(whenBookWasGiven, LocalDateTime.now());
+    }
+
+    public LocalDateTime getWhenBookWasGiven(){
+        return whenBookWasGiven;
+    }
+
+    public void setWhenBookWasGiven(LocalDateTime whenBookWasGiven){
+        this.whenBookWasGiven = whenBookWasGiven;
     }
 
     public Book(){}

@@ -66,6 +66,7 @@ public class BookService {
 
     public void updatePersonInBook(Person person, int id){
         bookRepository.updatePersonInBook(person, id);
+        findOne(id).get().setWhenBookWasGiven(LocalDateTime.now());
     }
 
     public List<Book> findBooksByNameContainingIgnoreCase(String name){
