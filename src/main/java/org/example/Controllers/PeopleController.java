@@ -20,14 +20,12 @@ import java.util.Optional;
 @RequestMapping("/person")
 public class PeopleController {
     private final BookService bookService;
-    private final PersonDao personDao;
     private final PersonService personService;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(BookService bookService, PersonDao personDao, PersonService personService, PersonValidator personValidator) {
+    public PeopleController(BookService bookService, PersonService personService, PersonValidator personValidator) {
         this.bookService = bookService;
-        this.personDao = personDao;
         this.personService = personService;
         this.personValidator = personValidator;
     }

@@ -99,14 +99,10 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String search(@ModelAttribute("book") Book book){
-        return "book/search";
-    }
-
-    @PostMapping("/search")
-    public String searchingBook(@ModelAttribute("book") Book book, Model model){
-        Optional<List<Book>> optionalBookList = bookService.findBooksByNameStarsWith(book.getName());
-        optionalBookList.ifPresentOrElse(bookList -> model.addAttribute("bookList", optionalBookList.get()),
+    public String search(@ModelAttribute("book") Book book,
+                         @RequestParam(value = "name", required = false) String name,
+                         Model model){
+        Optional.ofNullable(name).ifPresentOrElse(bookList -> model.addAttribute("bookList", bookService.findBooksByNameContainingIgnoreCase(name)),
                 () -> model.addAttribute("bookList", Collections.emptyList()));
         return "book/search";
     }

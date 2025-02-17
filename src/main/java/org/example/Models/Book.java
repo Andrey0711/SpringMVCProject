@@ -1,9 +1,12 @@
 package org.example.Models;
 
+import ch.qos.logback.core.rolling.helper.PeriodicityType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Range;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Objects;
 
 @Entity
@@ -25,12 +28,24 @@ public class Book {
     @Range(min = 1000, max = 2025, message = "You can't enter incorrect year of production. For example: 2000")
     @Column(name = "year_of_production")
     private int yearOfProduction;
+    @Column(name = "was_created")
+    private LocalDateTime was_created;
+    @Column(name = "when_book_was_given")
+    private LocalDateTime whenBookWasGiven;
+    @Transient
+    private int isOverdue;
 
     public Book(String name, String author, int yearOfProduction) {
         this.name = name;
         this.author = author;
         this.yearOfProduction = yearOfProduction;
     }
+
+    public Period isOverdue(){
+
+//        return Period.between(whenBookWasGiven, LocalDateTime.now());
+    }
+
     public Book(){}
     public int getId() {
         return id;
@@ -70,6 +85,14 @@ public class Book {
 
     public void setYearOfProduction(int yearOfProduction) {
         this.yearOfProduction = yearOfProduction;
+    }
+
+    public LocalDateTime getWas_created(){
+        return was_created;
+    }
+
+    public void setWas_created(LocalDateTime was_created){
+        this.was_created = was_created;
     }
 
     @Override

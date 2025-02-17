@@ -16,7 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Optional<List<Book>> findBooksByPersonId(int id);
     Optional<Book> findBookByName(String name);
     void removePersonById(int id);
-    Optional<List<Book>> findBooksByNameStartsWith(String name);
+    List<Book> findBooksByNameContainingIgnoreCase(String name);
 
     @Query("update Book b set b.person = :person where b.id = :id")
     @Modifying

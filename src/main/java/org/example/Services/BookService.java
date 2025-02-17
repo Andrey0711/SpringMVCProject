@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +30,7 @@ public class BookService {
     public List<Book> findAll(int page, int books_per_page, boolean sortByYear){
 
         return sortByYear
-                ? bookRepository.findAll(PageRequest.of(page, books_per_page, Sort.by("year_of_production"))).getContent()
+                ? bookRepository.findAll(PageRequest.of(page, books_per_page, Sort.by("yearOfProduction"))).getContent()
                 : bookRepository.findAll(PageRequest.of(page, books_per_page)).getContent();
     }
 
@@ -44,6 +45,7 @@ public class BookService {
 
     public void save(Book book){
         bookRepository.save(book);
+        book.setWas_created(LocalDateTime.now());
     }
 
     public void remove(int id){
@@ -66,7 +68,7 @@ public class BookService {
         bookRepository.updatePersonInBook(person, id);
     }
 
-    public Optional<List<Book>> findBooksByNameStarsWith(String name){
-        return bookRepository.findBooksByNameStartsWith(name);
+    public List<Book> findBooksByNameContainingIgnoreCase(String name){
+        return !name.isEmpty() ? bookRepository.findBooksByNameContainingIgnoreCase(name) : Collections.emptyList();
     }
 }

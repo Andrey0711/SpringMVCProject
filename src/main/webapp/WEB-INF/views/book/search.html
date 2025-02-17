@@ -8,14 +8,20 @@
 
 <body>
 
-<form th:method="POST" th:object="${book}" th:action="@{/search}">
+<form th:method="GET" th:object="${book}" th:action="@{search?name=${book.getName()}}">
     <label for="book"></label>
     <input th:field="*{name}" type="text" id="book">
     <input type="submit" value="Search...">
 </form>
-<div th:if="${bookList}">
-    <div th:if="${!bookList.isEmpty()}" th:each="bookObj: ${bookList}">
-    </div>
+<div th:if="${!bookList.isEmpty()}" th:each="bookObj: ${bookList}">
+    <a th:text="${bookObj.getName()}" th:href="@{book/edit/{id} (id=${bookObj.getId()})}"></a>
+    <div>Author of book: <span th:text="${bookObj.getAuthor()}"></span></div>
+    <div th:if="${bookObj.getPerson()}">Reader: <a th:text="${bookObj.getPerson().getFullname()}" th:href="@{/person/{id}/edit (id=${bookObj.getPerson().getId()})}"></a></div>
+    <div th:if="!${bookObj.getPerson()}">Nothing reader</div>
+    <br>
+</div>
+<div th:if="${bookList.isEmpty()}">
+    <p>Nothing to show</p>
 </div>
 </body>
 

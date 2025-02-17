@@ -32,7 +32,7 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Book> bookList;
     @Column(name = "mood")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Mood mood;
 
     public Person(String fullname, LocalDate date_of_birth) {
